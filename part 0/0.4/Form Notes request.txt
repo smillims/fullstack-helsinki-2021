@@ -1,0 +1,28 @@
+title Form Notes request
+
+note over Browser: CLICK BUTTON
+
+Browser->+Server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note
+note right of Server: thinking
+Server-->-Browser: HTTP status 302. https://studies.cs.helsinki.fi/exampleapp/notes
+note left of Browser: thinking
+Browser->+Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+note right of Server: thinking
+Server-->-Browser: HTML-code
+note left of Browser: thinking
+Browser->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+note right of Server: thinking
+Server-->Browser: CSS-code: main.css
+note left of Browser: thinking
+Browser->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+note right of Server: thinking
+Server-->Browser: JS-code: main.js
+note left of Browser
+    JS has request
+    to JSON data
+end note
+Browser->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+note right of Server: thinking
+Server-->Browser: JSON data
+
+note over Browser: END

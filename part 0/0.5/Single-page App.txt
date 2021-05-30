@@ -1,0 +1,22 @@
+title Single-page App
+
+Browser->+Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa
+note right of Server: thinking
+Server-->-Browser: HTML-code
+note left of Browser: thinking
+Browser->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+note right of Server: thinking
+Server-->Browser: CSS-code: main.css
+note left of Browser: thinking
+Browser->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+note right of Server: thinking
+Server-->Browser: JS-code: spa.js
+note left of Browser
+    JS has request
+    to JSON data
+end note
+Browser->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+note right of Server: thinking
+Server-->Browser: JSON data
+
+note over Browser: END

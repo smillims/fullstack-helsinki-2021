@@ -1,0 +1,9 @@
+title Single-page App form request
+
+note over Browser: CLICK BUTTON
+
+Browser->+Server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+note right of Server: thinking
+Server-->-Browser: note with information
+
+note over Browser: END

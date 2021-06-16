@@ -1,0 +1,9 @@
+.groupButtons {
+  margin-top: 17px;
+}
+
+.groupButtons button {
+  padding: 3px 10px;
+
+  border-radius: 3px;
+}

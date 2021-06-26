@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import FindMaxRating from "./components/FindMaxRating";
 import Header from "./components/Header";
 
 const App = () => {
@@ -13,26 +14,15 @@ const App = () => {
   ];
 
   const [selected, setSelected] = useState(0);
-  const [rating, setRating] = useState(Array.apply(null, new Array(anecdotes.length)).map(Number.prototype.valueOf, 0));
+  const [rating, setRating] = useState(
+    Array.apply(null, new Array(anecdotes.length)).map(Number.prototype.valueOf, 0)
+  );
   const handleClick = (max) => setSelected(Math.floor(Math.random() * max));
   const incrementRating = () => {
-    const test = [...rating];
-    test[selected] += 1;
-    setRating([...test]);
+    const copyRating = [...rating];
+    copyRating[selected] += 1;
+    setRating([...copyRating]);
   };
-  function checkMostVotes() {
-    return rating.reduce(function (p, v) {
-      return ( p > v ? p : v );
-    });
-  }
-
-  //function checkMostVotes() {
-  //  for (let i = 0; i < rating.length; i++) {
-  //    if (rating[i] !== 0) {
-  //      return anecdotes[i];
-  //    }
-  //  }
-  //}
 
   return (
     <>
@@ -41,7 +31,7 @@ const App = () => {
       <button onClick={() => incrementRating()}>vote</button>
       <button onClick={() => handleClick(anecdotes.length)}>next anectode</button>
       <Header text="Anecdote with the most votes" />
-      <p>{checkMostVotes()}</p>
+      <FindMaxRating anecdotes={anecdotes} rating={rating} />
     </>
   );
 };

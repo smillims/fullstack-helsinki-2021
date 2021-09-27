@@ -1,63 +1,56 @@
-const OutputCountries = ({ countriesTitle, collectionCountries }) => {
-  if (collectionCountries.length === 0) return <p>Please, input valid name</p>
+import { useEffect, useState } from "react";
+import InfoAboutOneCountry from "./InfoAboutOneCountry";
 
-  if (collectionCountries.length > 10) return <p>Too many matches, specify another filter</p>;
+const OutputCountries = ({ countriesTitle, collectionCountries, error, dataLoading }) => {
+  const [boolean, setBoolean] = useState(false);
+  const [oneCountryData, setOneCountryData] = useState({});
 
-  if (collectionCountries.length === 2) {
-    const searchingCountry = collectionCountries.find(
-      (item) => item.name.toLowerCase() === countriesTitle.toLowerCase()
-    );
+  useEffect(() => {
+    setBoolean(false);
+  }, [countriesTitle]);
 
-
-    if (searchingCountry === undefined)
-      return collectionCountries.map((country) => <p key={country.name}>{country.name}</p>);
-
-    const { name, languages, capital, population, flag } = searchingCountry;
-
-    return (
-      <div key={name}>
-        <h2>{name}</h2>
-        <p>capital is {capital}</p>
-        <p>population is {population}</p>
-        <div>
-          <h3>Language</h3>
-          <ul>
-            {languages.map((language) => (
-              <li key={language.name}>{language.name}</li>
-            ))}
-          </ul>
-        </div>
-        <img src={flag} alt="flag" style={{ maxWidth: 300 }} />
-      </div>
-    );
+  if (!countriesTitle) {
+    return <p>Please, type something to search field</p>;
   }
 
-  if (collectionCountries.length === 1)
-    return collectionCountries.map((country) => {
-      const { name, languages, capital, population, flag } = country;
+  if (error) {
+    return <p>{typeof error === "object" ? error.toString() : error}</p>;
+  }
 
+  if (dataLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (collectionCountries.length === 1) {
+    const [country] = collectionCountries;
+    return <InfoAboutOneCountry oneCountryData={country} />;
+  }
+
+  if (collectionCountries.length > 1) {
+    const countriesName = collectionCountries.map((country) => {
       return (
-        <div key={name}>
-          <h2>{name}</h2>
-          <p>capital is {capital}</p>
-          <p>population is {population}</p>
-          <div>
-            <h3>Language</h3>
-            <ul>
-              {languages.map((language) => (
-                <li key={language.name}>{language.name}</li>
-              ))}
-            </ul>
-          </div>
-          <img src={flag} alt="flag" style={{ maxWidth: 300 }} />
+        <div key={country.name}>
+          <p style={{ display: "inline-block", margin: `5px 5px 5px 0` }}>{country.name}</p>
+          <button
+            onClick={() => {
+              setOneCountryData(country);
+              setBoolean(true);
+            }}
+          >
+            show
+          </button>
         </div>
       );
     });
 
-  if (collectionCountries.length > 1)
-    return collectionCountries.map((country) => <p key={country.area}>{country.name}</p>);
+    return <>{boolean ? <InfoAboutOneCountry oneCountryData={oneCountryData} /> : countriesName}</>;
+  }
 
-  return <p>Please, type something to search input</p>;
+  if (collectionCountries.length > 10) {
+    return <p>Too many matches, specify another filter</p>;
+  }
+
+  return null;
 };
 
 export default OutputCountries;
